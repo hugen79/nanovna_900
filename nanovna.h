@@ -160,7 +160,7 @@ extern int area_height;
 
 // font
 #if !defined(ANTENNA_ANALYZER)
-extern const uint16_t x5x7_bits [];
+extern const uint8_t x5x7_bits [];
 #else
 extern const uint16_t x7x13b_bits [];
 #endif
@@ -211,6 +211,7 @@ typedef struct {
   uint16_t trace_color[TRACES_MAX];
   int16_t touch_cal[4];
   int8_t default_loadcal;
+  bool biginfo_enabled;
   uint32_t harmonic_freq_threshold;
   int32_t checksum;
 } config_t;
@@ -257,8 +258,6 @@ void draw_frequencies(void);
 void draw_all(bool flush);
 
 void draw_cal_status(void);
-
-void markmap_all_markers(void);
 
 void marker_position(int m, int t, int *x, int *y);
 int search_nearest_index(int x, int y, int t);
@@ -343,6 +342,7 @@ extern properties_t *active_props;
 extern properties_t current_props;
 
 extern int8_t previous_marker;
+extern bool biginfo_enabled;
 
 #define frequency0 current_props._frequency0
 #define frequency1 current_props._frequency1

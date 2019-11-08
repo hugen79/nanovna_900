@@ -57,6 +57,7 @@ int8_t sweep_once = FALSE;
 int8_t cal_auto_interpolate = TRUE;
 uint16_t redraw_request = 0; // contains REDRAW_XXX flags
 int16_t vbat = 0;
+bool biginfo_enabled = FALSE;
 
 static THD_WORKING_AREA(waThread1, 640);
 static THD_FUNCTION(Thread1, arg)
@@ -610,6 +611,7 @@ config_t config = {
   .trace_color =       { RGB565(0,255,255), RGB565(255,0,40), RGB565(0,0,255), RGB565(50,255,0) },
   .touch_cal =         { 370, 540, 154, 191 },  //{ 620, 600, 160, 190 },
   .default_loadcal =   0,
+  .biginfo_enabled = FALSE,
   .harmonic_freq_threshold = 300000000,
   .checksum =          0
 };
@@ -2090,6 +2092,9 @@ int main(void)
    * by the Reference Manual.
    */
   dacStart(&DACD2, &dac1cfg1);
+  
+  /* restore big info screen status */
+  biginfo_enabled = config.biginfo_enabled;
 
   /* initial frequencies */
   update_frequencies();
